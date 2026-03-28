@@ -1,17 +1,10 @@
 import os
 import json
-from dotenv import load_dotenv
 from google import genai
-
+import streamlit as st
 from pathlib import Path
 
-env_path = Path(__file__).resolve().parent / ".env"
-load_dotenv(dotenv_path=env_path, override=True)
-
-print("ENV PATH CHECK")
-print("KEY =", os.getenv("GOOGLE_API_KEY"))   # 👈 ADD THIS
-
-api_key = os.getenv("GOOGLE_API_KEY")
+api_key = st.secrets["GOOGLE_API_KEY"]
 
 if not api_key:
     raise ValueError("Gemini API key not found. Add GOOGLE_API_KEY=your_key in your .env file.")
