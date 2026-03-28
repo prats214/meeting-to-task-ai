@@ -1,15 +1,15 @@
-import os
 import json
-from google import genai
 import streamlit as st
-from pathlib import Path
+from google import genai
 
-api_key = st.secrets["GOOGLE_API_KEY"]
+# ── Load API Key safely ────────────────────────────────────────────────────────
+api_key = st.secrets.get("GOOGLE_API_KEY")
 
 if not api_key:
-    raise ValueError("Gemini API key not found. Add GOOGLE_API_KEY=your_key in your .env file.")
-
-client = genai.Client(api_key=api_key)
+    # DO NOT crash import, just store None and handle later
+    client = None
+else:
+    client = genai.Client(api_key=api_key)
 
 PROMPT_TEMPLATE = """
 You are an AI assistant that extracts structured action items from meeting transcripts.
