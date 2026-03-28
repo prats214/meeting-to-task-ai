@@ -1,6 +1,6 @@
 import json
 import streamlit as st
-from google import genai
+import google.generativeai as genai
 
 # ── Load API Key safely ────────────────────────────────────────────────────────
 api_key = st.secrets.get("GOOGLE_API_KEY")
@@ -9,7 +9,8 @@ if not api_key:
     # DO NOT crash import, just store None and handle later
     client = None
 else:
-    client = genai.Client(api_key=api_key)
+    genai.configure(api_key=api_key)
+    model = genai.GenerativeModel("gemini-2.5-flash")
 
 PROMPT_TEMPLATE = """
 You are an AI assistant that extracts structured action items from meeting transcripts.
@@ -133,10 +134,7 @@ def extract_tasks(transcript: str) -> dict:
     prompt = PROMPT_TEMPLATE.format(transcript=transcript)
 
     try:
-        response = client.models.generate_content(
-            model="gemini-2.5-flash",
-            contents=prompt,
-        )
+        response = model.generate_content(prompt)
 
         raw_output = response.text or ""
         cleaned_output = clean_model_output(raw_output)
