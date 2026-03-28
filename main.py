@@ -215,22 +215,7 @@ st.markdown(
         position: relative;
         z-index: 1;
     }
-    .divider-dot {
-        text-align: center;
-        margin-top: -10px;
-        position: relative;
-        z-index: 1;
-    }
-    .divider-dot span {
-        display: inline-block;
-        width: 10px; height: 10px;
-        background: var(--gold);
-        border-radius: 50%;
-        margin: 0 3px;
-        animation: floatBubble 2.4s ease-in-out infinite;
-    }
-    .divider-dot span:nth-child(2) { animation-delay: 0.3s; background: var(--gold-light); }
-    .divider-dot span:nth-child(3) { animation-delay: 0.6s; background: var(--rust); }
+    .divider-dot { display: none; }
 
     /* ── Section label ── */
     .section-label {
@@ -306,8 +291,8 @@ st.markdown(
     div.stButton > button {
         width: auto;
         min-width: 180px;
-        background: var(--ink) !important;
-        color: var(--warm-white) !important;
+        background: var(--gold) !important;
+        color: var(--ink) !important;
         font-family: 'Playfair Display', serif;
         font-weight: 700;
         font-size: 0.95rem;
@@ -321,23 +306,23 @@ st.markdown(
         display: block;
         margin-top: 0.4rem;
         outline: none !important;
-        box-shadow: none !important;
+        box-shadow: 0 4px 18px rgba(183, 110, 16, 0.28) !important;
     }
     div.stButton > button:hover {
-        background: var(--gold) !important;
+        background: var(--gold-light) !important;
         color: var(--ink) !important;
         transform: translateY(-2px);
-        box-shadow: 0 8px 24px rgba(183, 110, 16, 0.35) !important;
+        box-shadow: 0 8px 28px rgba(183, 110, 16, 0.38) !important;
         border: none !important;
     }
     div.stButton > button:active,
     div.stButton > button:focus,
     div.stButton > button:focus:not(:active) {
-        background: var(--gold-light) !important;
+        background: var(--gold) !important;
         color: var(--ink) !important;
         transform: translateY(0);
         outline: none !important;
-        box-shadow: none !important;
+        box-shadow: 0 2px 10px rgba(183, 110, 16, 0.2) !important;
         border: none !important;
     }
 
@@ -398,8 +383,8 @@ st.markdown(
         transition: all 0.2s ease !important;
     }
     .stTabs [aria-selected="true"] {
-        background: var(--ink) !important;
-        color: var(--warm-white) !important;
+        background: var(--gold) !important;
+        color: var(--ink) !important;
     }
     .stTabs [data-baseweb="tab-panel"] {
         padding-top: 1.4rem;
@@ -410,7 +395,7 @@ st.markdown(
         background: var(--bg-card);
         border: 1.5px solid var(--border);
         border-radius: 16px;
-        padding: 1.4rem 1.8rem;
+        padding: 1.6rem 1.8rem;
         font-family: 'DM Mono', monospace;
         font-size: 0.84rem;
         line-height: 1.85;
@@ -420,28 +405,6 @@ st.markdown(
         box-shadow: inset 0 2px 8px rgba(44,36,22,0.04);
         position: relative;
         z-index: 1;
-    }
-    .transcript-box::before {
-        content: open-quote;
-        position: absolute;
-        top: 0.5rem; left: 1rem;
-        font-family: 'Playfair Display', serif;
-        font-size: 5rem;
-        color: var(--gold-light);
-        opacity: 0.45;
-        line-height: 1;
-        quotes: "\201C" "\201D";
-    }
-    .transcript-box::after {
-        content: close-quote;
-        position: absolute;
-        bottom: -1rem; right: 1.2rem;
-        font-family: 'Playfair Display', serif;
-        font-size: 5rem;
-        color: var(--gold-light);
-        opacity: 0.45;
-        line-height: 1;
-        quotes: "\201C" "\201D";
     }
 
     /* ── Summary box ── */
@@ -729,7 +692,9 @@ st.markdown(
         margin-top: 0.5rem;
     }
 
-    /* ── Scrollbar ── */
+    [data-testid="stFileUploaderDropzoneInstructions"] svg {
+        display: none !important;
+    }
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg-deep); }
     ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
